@@ -37,32 +37,37 @@ namespace NormalizeInterfaceApiTests
 
 			if (shipperId == 1)
 			{
-				var blackcat = new Blackcat();
+				IShipper shipper = new Blackcat();
 
 				//黑貓只用商品重量來決定運費
-				var result = blackcat.GetFee(weight);
+				double result = shipper.GetFee();
 				return result;
 			}
 			else if (shipperId == 2)
 			{
-				var postOffice = new PostOffice();
+				IShipper shipper = new PostOffice();
 
 				// 需要重量跟長寬高
-				var result = postOffice.GetFee(weight, length, width, height);
+				double result = shipper.GetFee();
 				return result;
 			}
 			else
 			{
 				throw new NotImplementedException();
 			}
-			
+
 		}
 	}
 
-	internal class Blackcat
+	internal class Blackcat : IShipper
 	{
 		public Blackcat()
 		{
+		}
+
+		public double GetFee()
+		{
+			throw new NotImplementedException();
 		}
 
 		internal double GetFee(int weight)
@@ -71,10 +76,15 @@ namespace NormalizeInterfaceApiTests
 		}
 	}
 
-	internal class PostOffice
+	internal class PostOffice : IShipper
 	{
 		public PostOffice()
 		{
+		}
+
+		public double GetFee()
+		{
+			throw new NotImplementedException();
 		}
 
 		internal double GetFee(int weight, int length, int width, int height)
@@ -86,5 +96,10 @@ namespace NormalizeInterfaceApiTests
 
 			return result;
 		}
+	}
+
+	internal interface IShipper
+	{
+		double GetFee();
 	}
 }
