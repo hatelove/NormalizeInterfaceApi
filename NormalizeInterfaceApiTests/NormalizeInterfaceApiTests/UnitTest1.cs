@@ -35,27 +35,47 @@ namespace NormalizeInterfaceApiTests
 			var width = 20;
 			var height = 10;
 
-			if (shipperId == 1)
-			{
-				IShipper shipper = new Blackcat();
+			var product = new Product { Weight = weight, Length = length, Width = width, Height = height };
 
-				//黑貓只用商品重量來決定運費
-				double result = shipper.GetFee();
-				return result;
-			}
-			else if (shipperId == 2)
-			{
-				IShipper shipper = new PostOffice();
+			IShipper shipper = GetShipper(shipperId, product);
 
-				// 需要重量跟長寬高
-				double result = shipper.GetFee();
+			if (shipper != null)
+			{
+				var result = shipper.GetFee();
+
 				return result;
 			}
 			else
 			{
 				throw new NotImplementedException();
 			}
+			
+			//if (shipperId == 1)
+			//{
+			//	IShipper shipper = new Blackcat();
 
+			//	//黑貓只用商品重量來決定運費
+			//	double result = shipper.GetFee();
+			//	return result;
+			//}
+			//else if (shipperId == 2)
+			//{
+			//	IShipper shipper = new PostOffice();
+
+			//	// 需要重量跟長寬高
+			//	double result = shipper.GetFee();
+			//	return result;
+			//}
+			//else
+			//{
+			//	throw new NotImplementedException();
+			//}
+
+		}
+
+		private IShipper GetShipper(int shipperId, Product product)
+		{
+			throw new NotImplementedException();
 		}
 	}
 
@@ -101,5 +121,13 @@ namespace NormalizeInterfaceApiTests
 	internal interface IShipper
 	{
 		double GetFee();
+	}
+
+	internal class Product
+	{
+		public int Height { get; set; }
+		public int Length { get; set; }
+		public int Weight { get; set; }
+		public int Width { get; set; }
 	}
 }
