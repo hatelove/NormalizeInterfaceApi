@@ -78,27 +78,36 @@ namespace NormalizeInterfaceApiTests
 			switch (shipperId)
 			{
 				case 1:
+					// 可以用 constructor, property setter, set function, factory method pattern
 					return new Blackcat(product.Weight);
 				case 2:
 					return new PostOffice(product);
 				default:
-					break;
+					return null;
 			}
 		}
 	}
 
 	internal class Blackcat : IShipper
 	{
+		private int _weight;
+
 		public Blackcat()
 		{
 		}
 
-		public double GetFee()
+		public Blackcat(int weight)
 		{
-			throw new NotImplementedException();
+			this._weight = weight;
 		}
 
-		internal double GetFee(int weight)
+		public double GetFee()
+		{
+			// 可以轉呼叫private function, 或是把 private funciton 內容搬進來這個方法，然後把 private funciton 刪掉
+			return this.GetFee(this._weight);
+		}
+
+		private double GetFee(int weight)
 		{
 			return weight * 5;
 		}
@@ -106,16 +115,24 @@ namespace NormalizeInterfaceApiTests
 
 	internal class PostOffice : IShipper
 	{
+		private Product product;
+
 		public PostOffice()
 		{
 		}
 
-		public double GetFee()
+		public PostOffice(Product product)
 		{
-			throw new NotImplementedException();
+			this.product = product;
 		}
 
-		internal double GetFee(int weight, int length, int width, int height)
+		public double GetFee()
+		{
+			// 可以轉呼叫private function, 或是把 private funciton 內容搬進來這個方法，然後把 private funciton 刪掉
+			return this.GetFee(product.Weight, product.Length, product.Width, product.Height);
+		}
+
+		private double GetFee(int weight, int length, int width, int height)
 		{
 			var feeByWeight = weight * 7;
 			var feeBySize = length * width * height / 100;
