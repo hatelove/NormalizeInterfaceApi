@@ -49,28 +49,6 @@ namespace NormalizeInterfaceApiTests
 			{
 				throw new NotImplementedException();
 			}
-			
-			//if (shipperId == 1)
-			//{
-			//	IShipper shipper = new Blackcat();
-
-			//	//黑貓只用商品重量來決定運費
-			//	double result = shipper.GetFee();
-			//	return result;
-			//}
-			//else if (shipperId == 2)
-			//{
-			//	IShipper shipper = new PostOffice();
-
-			//	// 需要重量跟長寬高
-			//	double result = shipper.GetFee();
-			//	return result;
-			//}
-			//else
-			//{
-			//	throw new NotImplementedException();
-			//}
-
 		}
 
 		private IShipper GetShipper(int shipperId, Product product)
@@ -80,8 +58,10 @@ namespace NormalizeInterfaceApiTests
 				case 1:
 					// 可以用 constructor, property setter, set function, factory method pattern
 					return new Blackcat(product.Weight);
+
 				case 2:
 					return new PostOffice(product);
+
 				default:
 					return null;
 			}
