@@ -75,7 +75,15 @@ namespace NormalizeInterfaceApiTests
 
 		private IShipper GetShipper(int shipperId, Product product)
 		{
-			throw new NotImplementedException();
+			switch (shipperId)
+			{
+				case 1:
+					return new Blackcat(product.Weight);
+				case 2:
+					return new PostOffice(product);
+				default:
+					break;
+			}
 		}
 	}
 
